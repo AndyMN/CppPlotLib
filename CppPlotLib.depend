@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1432856271 source:/home/andy/Documents/CppPlotLib/CppPlotLib/main.cpp
+	<iostream>
+	<vector>
+	"Figure.h"
+	<string>
+
+1432856248 /home/andy/Documents/CppPlotLib/CppPlotLib/Figure.h
+	<vector>
+	<iostream>
+	<fstream>
+	<algorithm>
+	<string>
+
+1432856250 source:/home/andy/Documents/CppPlotLib/CppPlotLib/Figure.cpp
+	"Figure.h"
+
