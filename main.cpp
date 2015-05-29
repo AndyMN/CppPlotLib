@@ -9,12 +9,13 @@ int main() {
     std::vector<int> y = {2, 4, 6, 8, 10};
 
     Figure fig1;
+    Figure fig2;
+
+
     fig1.plot(x, y);
     fig1.plot(y, x, "points");
     fig1.show();
-    fig1.save();
 
-    Figure fig2;
     fig2.plot(y, x);
     fig2.plot(x, y, "points");
     fig2.show();

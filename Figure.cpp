@@ -14,6 +14,13 @@ Figure::Figure() {
 }
 
 Figure::~Figure() {
+	if (gnuplot_stream != NULL) {
+		if (pclose(gnuplot_stream) == 0) {
+			for (int i = 0; i < temp_data_files.size(); i++){
+				remove(temp_data_files[i].c_str());
+			}
+		}
+	}
     num_figures--;
 }
 
@@ -64,5 +71,6 @@ void Figure::draw() {
         }
 
         fflush(gnuplot_stream);
+        //pclose(gnuplot_stream);
     }
 }
