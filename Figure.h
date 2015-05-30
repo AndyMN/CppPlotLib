@@ -22,6 +22,7 @@ private:
     std::vector<std::string> temp_data_files;
     std::vector<std::string> line_styles;
     std::vector<std::string> line_colours;
+    std::vector<std::string> line_markers;
     static int num_figures;
     int id;
     int num_plots = 0;
@@ -33,6 +34,7 @@ public: // VIEZE TEMPLATES
     template <typename T, typename D>
     void plot(std::vector<T>& x, std::vector<D>& y, std::string plot_style = "lines") {
         num_plots++;
+        set_plot_style(plot_style);
         std::string filename = "temp"+std::to_string(id)+"data"+std::to_string(num_plots)+".txt";
         std::ofstream f(filename);
         for (int i = 0; i < x.size(); i++) {
