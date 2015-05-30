@@ -10,7 +10,8 @@ int main() {
 
     Figure fig1;
 
-    fig1.plot(x, y, "--+r");
+    fig1.plot(x, y, "-s+");
+    fig1.plot(y,x, "+");
     fig1.show();
 
 
