@@ -1,4 +1,8 @@
-bin/
-obj/
+bin/**
+obj/**
 *.png
 *.txt
+*.layout
+*~
+*.depend
+main.cpp
