@@ -122,12 +122,12 @@ void Figure::draw() {
                     gnuplot_command = "'"+ style_string + ", \\\n";
                     fprintf(gnuplot_stream, gnuplot_command.c_str());
                 } else {
-                    gnuplot_command = "'"+ style_string + "\\\n";
+                    gnuplot_command = "'"+ style_string + "\\\n;";
                     fprintf(gnuplot_stream, gnuplot_command.c_str());
                 }
             }
         } else {
-			gnuplot_command = "plot '"+ temp_data_files[0]+"' using 1:2 with linespoints lt " + line_styles[0] +" lc "+ line_colours[0]+" pt "+line_markers[0] +" \\\n";
+			gnuplot_command = "plot '"+ temp_data_files[0]+"' using 1:2 with linespoints lt " + line_styles[0] +" lc "+ line_colours[0]+" pt "+line_markers[0] +" \\\n;";
             fprintf(gnuplot_stream, gnuplot_command.c_str());
         }
         fflush(gnuplot_stream);
