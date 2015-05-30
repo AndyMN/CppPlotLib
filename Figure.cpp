@@ -26,7 +26,7 @@ Figure::Figure() {
 Figure::~Figure() {
 	if (gnuplot_stream != NULL) {
 		if (pclose(gnuplot_stream) == 0) {
-			for (int i = 0; i < temp_data_files.size(); i++){
+			for (unsigned int i = 0; i < temp_data_files.size(); i++){
 				remove(temp_data_files[i].c_str());
 			}
 		}
@@ -44,7 +44,7 @@ void Figure::set_plot_style(std::string plot_style) {
     bool line_colour_set = false;
     bool line_marker_set = false;
 
-    for (int i = 0; i < matlab_line_styles.size(); i++) {
+    for (unsigned int i = 0; i < matlab_line_styles.size(); i++) {
 		if (plot_style.find(matlab_line_styles[i]) != std::string::npos) {
 			if (!line_style_set) {
 				line_styles.push_back(gnuplot_line_styles[i]);
@@ -55,7 +55,7 @@ void Figure::set_plot_style(std::string plot_style) {
 		}
     }
 
-    for (int i =0; i < matlab_line_colours.size(); i++) {
+    for (unsigned int i =0; i < matlab_line_colours.size(); i++) {
 		if (plot_style.find(matlab_line_colours[i]) != std::string::npos) {
 			if (!line_colour_set) {
 				line_colours.push_back(gnuplot_line_colours[i]);
@@ -66,7 +66,7 @@ void Figure::set_plot_style(std::string plot_style) {
 		}
     }
 
-    for (int i = 0; i < matlab_line_markers.size(); i++) {
+    for (unsigned int i = 0; i < matlab_line_markers.size(); i++) {
 		if (plot_style.find(matlab_line_markers[i]) != std::string::npos) {
 			if (!line_marker_set) {
 				line_markers.push_back(gnuplot_line_markers[i]);
@@ -103,7 +103,7 @@ void Figure::save(std::string file_name) {
 	if (gnuplot_stream != NULL) {
 		fprintf(gnuplot_stream, "set term png\n");
 		std::string gnuplot_command = "set output '"+file_name+"'\n";
-		fprintf(gnuplot_stream, gnuplot_command.c_str());
+		fputs(gnuplot_command.c_str(), gnuplot_stream);
 		draw();
 	}
 }
@@ -113,22 +113,22 @@ void Figure::draw() {
     std::string style_string;
     if (gnuplot_stream != NULL) {
         if (temp_data_files.size() > 1){
-            for (int i = 0; i < temp_data_files.size(); i++) {
+            for (unsigned int i = 0; i < temp_data_files.size(); i++) {
 				style_string = temp_data_files[i]+"' using 1:2 with " + line_spec[i] + " lt " + line_styles[i] +" lc "+ line_colours[i]+" pt " + line_markers[i];
                 if (i == 0) {
                     gnuplot_command = "plot '" + style_string + ", \\\n";
-                    fprintf(gnuplot_stream, gnuplot_command.c_str());
+                    fputs(gnuplot_command.c_str(), gnuplot_stream);
                 } else if (i < temp_data_files.size() - 1) {
                     gnuplot_command = "'"+ style_string + ", \\\n";
-                    fprintf(gnuplot_stream, gnuplot_command.c_str());
+                    fputs(gnuplot_command.c_str(), gnuplot_stream);
                 } else {
                     gnuplot_command = "'"+ style_string + "\\\n;";
-                    fprintf(gnuplot_stream, gnuplot_command.c_str());
+                    fputs(gnuplot_command.c_str(), gnuplot_stream);
                 }
             }
         } else {
 			gnuplot_command = "plot '"+ temp_data_files[0]+"' using 1:2 with linespoints lt " + line_styles[0] +" lc "+ line_colours[0]+" pt "+line_markers[0] +" \\\n;";
-            fprintf(gnuplot_stream, gnuplot_command.c_str());
+            fputs(gnuplot_command.c_str(), gnuplot_stream);
         }
         fflush(gnuplot_stream);
     }
